@@ -13,13 +13,22 @@
 
 ### Step 1
 
-Clone this repo
+Create a folder to hold the project files and navigate to it
 
 ```
-git clone https://github.com/isaac-souza/docker-compose-laravel.git
+mkdir laravel-docker
+cd laravel-docker
 ```
 
 ### Step 2
+
+Clone this repo
+
+```
+git clone https://github.com/isaac-souza/docker-compose-laravel.git .
+```
+
+### Step 3
 
 Inside the folder, clone Laravel's repo to a folder called 'src'
 
@@ -27,7 +36,7 @@ Inside the folder, clone Laravel's repo to a folder called 'src'
 git clone https://github.com/laravel/laravel.git src
 ```
 
-### Step 3
+### Step 4
 
 Start the containers 
 
@@ -35,7 +44,7 @@ Start the containers
 docker-compose up
 ```
 
-### Step 4
+### Step 5
 
 When all containers finish booting up, run the following command in a new terminal window to install the Laravel dependencies
 
@@ -43,7 +52,7 @@ When all containers finish booting up, run the following command in a new termin
 docker-compose exec -T app composer install
 ```
 
-### Step 5
+### Step 6
 
 Create a copy of the .env.example file
 
@@ -51,7 +60,7 @@ Create a copy of the .env.example file
 docker-compose exec -T app cp .env.example .env
 ```
 
-### Step 6
+### Step 7
 
 Generate a new encryption key
 
@@ -59,7 +68,7 @@ Generate a new encryption key
 docker-compose exec -T app php artisan key:generate
 ```
 
-### Step 7
+### Step 8
 
 Ajust a few .env variables
 
@@ -68,7 +77,7 @@ DB_HOST=mysql
 REDIS_HOST=redis
 ```
 
-### Step 8
+### Step 9
 
 Clear the config cache
 
@@ -76,12 +85,12 @@ Clear the config cache
 docker-compose exec -T app php artisan cache:clear
 ```
 
-### Step 9
+### Step 10
 
-Try to access Laravel's homepage
+Try to access the services in your browser
 
-```
-http://localhost:8100
-```
+- Laravel app (http://localhost:8100)
+- phpMyAdmin (http://localhost:8200)
+- MailHog (http://localhost:8025)
 
 ## You are all set now!!!
