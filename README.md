@@ -1,5 +1,14 @@
 # Docker-compose setup to run Laravel applications
 
+## Available containers
+
+- PHP-FPM 8 (localhost:8100, application)
+- NGINX
+- MySQL 5.7
+- phpMyAdmin (localhost:8200)
+- Redis 6
+- MailHog (localhost:8025)
+
 ## How to use it?
 
 ### Step 1
