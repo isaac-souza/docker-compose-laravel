@@ -1,0 +1,83 @@
+version: "3.7"
+
+networks:
+    app-network:
+        driver: bridge
+
+services:
+    app:
+        build: 
+            context: ./
+            dockerfile: Dockerfile
+        image: laravel8-php-fpm-80
+        container_name: app
+        restart: unless-stopped
+        tty: true
+        working_dir: /var/www
+        volumes: 
+            - ./src:/var/www
+        networks: 
+            - app-network
+
+    mysql:
+        image: mysql:5.7.33
+        container_name: mysql
+        restart: unless-stopped
+        tty: true
+        environment: 
+            MYSQL_DATABASE: laravel
+            MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+            SERVICE_TAGS: dev
+            SERVICE_NAME: mysql
+        volumes: 
+            - ./docker/mysql/data:/var/lib/mysql
+        networks:
+            - app-network
+
+    nginx:
+        image: nginx:1.19.8-alpine
+        container_name: nginx
+        restart: unless-stopped
+        tty: true
+        ports: 
+            - 8100:80
+        volumes: 
+            - ./src:/var/www
+            - ./docker/nginx/conf:/etc/nginx/conf.d
+        networks: 
+            - app-network
+
+    # phpmyadmin:
+    #     image: phpmyadmin:5.1.0-apache
+    #     container_name: phpmyadmin
+    #     restart: unless-stopped
+    #     tty: true
+    #     ports: 
+    #         - 8200:80
+    #     environment:
+    #         PMA_HOST: mysql
+    #         PMA_PORT: 3306
+    #         PMA_USER: laravel8
+    #         PMA_PASSWORD: 123456
+    #     networks:
+    #         - app-network
+
+    # mailhog:
+    #     image: mailhog/mailhog:v1.0.1
+    #     container_name: mailhog
+    #     restart: unless-stopped
+    #     tty: true
+    #     ports: 
+    #         - 8025:8025
+    #     networks: 
+    #         - app-network
+
+    # redis:
+    #     image: redis:6.2.1-buster
+    #     container_name: redis
+    #     restart: unless-stopped
+    #     tty: true
+    #     volumes: 
+    #         - ./docker/redis/data:/data
+    #     networks: 
+    #         - app-network
