@@ -57,8 +57,8 @@ services:
         environment:
             PMA_HOST: mysql
             PMA_PORT: 3306
-            PMA_USER: laravel8
-            PMA_PASSWORD: 123456
+            PMA_USER: root
+            PMA_PASSWORD: 
         networks:
             - app-network
 
